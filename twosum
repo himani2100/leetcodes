@@ -1,0 +1,86 @@
+import java.util.HashMap; 
+//we will use hashmaps
+import java.util.Map;
+//for the foreach loop
+
+
+
+/************************************************************************************************************************************************************
+problem from leetcode
+Central Idea: I've used a test cases based approach to solve this problem.
+
+constraints given:
+2 <= nums.length <= 10^4
+-10^9 <= nums[i] <= 10^9
+-10^9 <= target <= 10^9
+Only one valid answer exists.
+
+For example: the given constraints clearly state that the length of the input array will be two or more. Hence we have the following possible cases:
+
+case 1: the addition of the two given integers is the target.
+case 2: The addition of the two given integers (in the array) is NOT the target. In which case I return null.
+case 3: a valid array with more than 2 integers.
+
+We will use a hashmap to store the values of the array in the format 
+(key,value) = (integer, index).
+
+we use a foreach loop here. hashmap automatically saves everything in an ascending order. Hence, when we iterate we need not worry about indexing of the answer being out of order, it will always be in order.
+
+we introduce a new variable called search and subtract the key being seen from target. If search exsists in the hashmap then it's value is stored at ans[1] since as previously mentioned hasmap stores in ascending order hence the index being seen will be less than the index we seek.
+
+*************************************************************************************************************************************************************/
+
+class Solution 
+{
+    public int[] twoSum(int[] nums, int target) 
+    {
+        
+        if(nums.length == 2)
+        {
+            if(nums[0] + nums[1] == target) //case 1
+            {
+                int[] ret = {0,1};
+                return ret;
+            }
+            else //case 2
+            {
+                return null;
+            }
+        }
+        
+        //case 3
+        int[] ans = new int[2];
+        HashMap<Integer, Integer> h = new HashMap<Integer,Integer> ();
+        int j = 0;
+        
+        for(int i : nums)
+        {
+            h.put(i,j); 
+            j++;
+        }
+       // System.out.println(h);
+    
+
+    for(Map.Entry<Integer, Integer> entry : h.entrySet()) 
+    {
+        int key = entry.getKey(); //integer at the spot in array
+        int value = entry.getValue(); //index
+        int search = target - key;
+        //System.out.println("key="+key+" value="+value+" search="+search);
+        
+        if(h.containsKey(search))
+           {
+               ans[0] = value;
+               ans[1] = h.get(search);
+                break;
+           }
+    }
+        
+    /*   h.forEach( 
+          (K,V) -> System.out.println( K + " => " + V )
+          //keeping this around for future reference.
+            ); */
+       
+        return ans; 
+    }
+}
