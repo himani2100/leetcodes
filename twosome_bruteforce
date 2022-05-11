@@ -1,0 +1,74 @@
+import java.util.ArrayList; 
+// import the ArrayList class
+//we will use ArrayList
+
+
+
+
+/*
+//problem from leetcode
+Central Idea: I've used a test cases based approach to solve this problem.
+
+2 <= nums.length <= 10^4
+-10^9 <= nums[i] <= 10^9
+-10^9 <= target <= 10^9
+Only one valid answer exists.
+
+For example: the given constarints clearly state that the length of the input array will be two or more. Hence we have the following possible cases:
+
+case 1: the addition of the two given integers is the target.
+case 2: The addition of the two given integers (in the array) is NOT the target. In which           case I return null.
+case 3: a valid array with more than 2 integers.
+
+Time Complexity of this solution: O(n^2)
+Not an ideal solution as I've used brute force. But my previous hashmap solutions had a small bug where it would not work correctly for an array (nums) with duplicate values. Maening 6 = 3 + 3; if nums = {3,0,3}; then it would return ans=[0,0] and not the next occurence of 3.
+
+*/
+
+class Solution 
+{
+    public int[] twoSum(int[] nums, int target) 
+    {
+        
+        if(nums.length == 2)
+        {
+            if(nums[0] + nums[1] == target) //case 1
+            {
+                int[] ret = {0,1};
+                return ret;
+            }
+            else //case 2
+            {
+                return null;
+            }
+        }
+        
+        //case 3
+        int[] ans = new int[2];
+        ans[0] = ans[1] = 44;
+        
+        for(int i = 0; i < nums.length; i++)
+        {
+            int search = target-nums[i];
+            
+            for(int j = i+1; j < nums.length; j++)
+            {
+                if(search == nums[j])
+                {
+                    ans[1] = j;
+                    break;
+                }
+                
+            }
+            
+            if(ans[1] != 44)
+            {
+                ans[0] = i;
+                break;
+            }
+            
+        }
+       
+        return ans; 
+    }
+}
