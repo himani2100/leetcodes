@@ -1,0 +1,62 @@
+/*
+Central Idea: Test Driven programming
+
+Constraints:
+1 <= nums.length <= 3 * 10^4
+-100 <= nums[i] <= 100
+nums is sorted in non-decreasing order.
+
+we are to solve this in place without using more than O(1) extra space. hence we will use pointers. 
+
+There are 3 possible basic test cases:
+case 1: the array has only one element, in which case it is undoubtedly a unique integer. hence we return 1
+case 2: the array has only two elements. So we compare the elements with each other and see if they are unique. if they are we return 2 for the entire array has unique elemnts or we return 1, since only one is unique. This case doesn't need to be solved, it can be solved inside the loop BUT taking this out at this stage in the process makes the program run faster.
+case 3: The array has length > 2. I've introduced two pointers: ptr_hold, holds the position in the array and also keeps track of the current integer. ptr_rot is rotating through the array. It compares each value it sees with the value at ptr_hold and if a new value is seen, the position of ptr_hold is incremented and used as a new reference point.
+
+We run a loop linearly; hence the complexity is O(n). K simply keeps track of how many times ptr_hold was incremented. 
+
+k starts at 1 because no matter what the first integer in the array will always be unique.
+*/
+
+#include <iostream>
+
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) 
+    {
+        //case 1       
+        if(std::size(nums) == 1)
+        {
+            return 1;
+        }
+        
+        if(std::size(nums) == 2)
+        {
+            if(nums[0] != nums[1])
+            {
+                return 2;
+            }
+            else
+            {
+                return 1;
+            }
+        } 
+        
+        int * ptr_hold = &nums[0]; //holds position in the array
+        int * ptr_rot = &nums[0];; //rotates to find unique values
+        int k = 1;
+       // cout << "ptr = " << *ptr_hold << endl;
+        
+        for(int i = 0; i < std::size(nums); i++)
+        {
+            ptr_rot = &nums[i];
+            if(*ptr_hold != *ptr_rot)
+            {
+                ptr_hold++;
+                *ptr_hold = *ptr_rot;
+                k++;
+            }
+        }
+       return k;
+    }
+};
