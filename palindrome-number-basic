@@ -1,0 +1,52 @@
+/*
+Test Driven Programming
+
+Central Idea:
+There are a few possible test inputs:
+case 1: if the input is less than 0 (meaning it is negatixe) the there's no way that reversing a negative integer -x will result in an integer equal to it. -x != x-.
+
+case 2: if x is a single digit number like 0,1,2,3,..,9 then reversing it would result in the same number. Since single digit integers are palindromic themselves.
+
+case 3: if it is 10, 20, 30... or even 100, 200, 300- these numbers, right off the bat cannot be reversed to be equal to themselves.
+
+case 4: a valid input.
+since we've removed negative integers from the equation, we can go ahead and make the reversed number an unsigned int to be able to increase the constarints of how big an integer it can handle. While x is a signed int, reversed x which is y can be bigger than x. Then we simply reverse x and save it into y and then return the comparisions of the two integers. 
+*/
+
+class Solution 
+{
+public:
+    bool isPalindrome(int x) 
+    {
+        if(x < 0) //case 1
+        {
+            return false;
+        }
+        
+        if(x < 10 && x >= 0) //in case the number entered is 1 and not 01;
+        { //case 2
+            return true;
+        }
+        
+        if(x % 10 == 0) //case 3
+        {
+            return false;
+        }
+        
+        unsigned int y = 0;
+        unsigned int save = x;
+        //int remainder = 1;
+        
+        cout << "x before loop = " << x << endl;
+        
+        while(save > 0)
+        {
+            //remainder = x % 10;
+            y = (y * 10) + save % 10;
+            save /= 10;
+        } 
+        cout << "y after loop = " << y << endl;
+        
+        return y == x;// || save == y/10;
+    }
+};
