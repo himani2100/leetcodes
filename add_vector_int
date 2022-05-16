@@ -1,0 +1,92 @@
+/*
+The array-form of an integer num is an array representing its digits in left to right order.
+
+For example, for num = 1321, the array form is [1,3,2,1].
+Given num, the array-form of an integer, and an integer k, return the array-form of the integer num + k.
+
+-----------------------------------------Constraints:
+1 <= num.length <= 10^4
+0 <= num[i] <= 9
+num does not contain any leading zeros except for the zero itself.
+1 <= k <= 10^4
+*/
+
+#include <iostream>
+#include <bits/stdc++.h>
+
+class Solution {
+public:
+    vector<int> addToArrayForm(vector<int>& num, int k) 
+    {
+        if(k == 0)
+        {
+            return num;
+        }
+       // cout << "length = " << std::size(num) << endl;
+        
+        int number = 0;
+        int length = pow(10, num.size()-1);
+        cout << "length = " << length << endl;
+        
+        for(int i = 0; i < num.size(); i++)
+        {
+            number += length * (num[i]);
+            length = length/10;
+        }
+        int ans = number + k;
+        vector<int> add;
+        while(ans > 0)
+        {
+            add.push_back(ans%10);
+            ans = ans/10;
+       }
+        std::reverse(add.begin(), add.end()); 
+        
+        
+        cout << "number = " << number << endl;
+        
+       /* vector<int> add;
+        while(k > 0)
+        {
+            add.push_back(k%10);
+            k = k/10;
+       }
+       std::reverse(add.begin(), add.end()); 
+        int diff;
+        int max;
+        if(num.size() > add.size())
+        {
+            diff = num.size() - add.size();
+            max = num.size();
+            for(int i = 0; i < diff; ++i)
+            {
+                add.insert(add.begin(),0);
+            }
+        }
+        else
+        {
+            max = add.size();
+            diff = add.size() - num.size();
+             for(int i = 0; i < diff; ++i)
+            {
+                num.insert(num.begin(),0);
+            }
+        }
+        
+        vector<int> ans;
+        int overflow = 0;
+        
+        for(int j = 0; j < max; j++)
+        {
+            int a = add[j] + num[j];
+            if(a > 10)
+            {
+                overflow = a/10;
+                ans.push_back();
+            }
+            //ans.push_back();
+        }*/
+        
+        return add; 
+    }
+};
