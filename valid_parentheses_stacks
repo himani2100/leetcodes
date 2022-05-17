@@ -1,0 +1,109 @@
+/*
+We shall use stacks to perform this operation. This is a bruteforce-type solution.
+*/
+import java.util.*; //we will import the stack package here.
+
+
+class Solution 
+{
+    public boolean isValid(String s) 
+    {
+        if(s.length() == 1)
+        {
+            return false;
+        }
+        
+        if(s.charAt(0) == ']' || s.charAt(0) == '}' || s.charAt(0) == ')')
+        {
+            return false;
+        }
+        
+        Stack<Character> stk = new Stack(); //only has one constructor.
+        
+        for(int i = 0; i<s.length(); i++) 
+        {
+            char a = s.charAt(i);
+            
+            if(a == ')')
+            {
+                if(stk.empty())
+                {
+                    return false;
+                }
+                char p = stk.peek();
+                if(p == a)
+                {
+                    return false;
+                }
+                
+                else if(p == '(')
+                {
+                    stk.pop();
+                }
+                
+                else
+                {
+                    return false;
+                }
+            }
+            
+            if(a == ']')
+            {
+                if(stk.empty())
+                {
+                    return false;
+                }
+                char p = stk.peek();
+                if(p == a)
+                {
+                    return false;
+                }
+                
+                else if(p == '[')
+                {
+                    stk.pop();
+                }
+                
+                else
+                {
+                    return false;
+                }
+            }
+            
+            if(a == '}')
+            {
+                if(stk.empty())
+                {
+                    return false;
+                }
+                char p = stk.peek();
+                if(p == a)
+                {
+                    return false;
+                }
+                
+                else if(p == '{')
+                {
+                    stk.pop();
+                }
+                
+                else
+                {
+                    return false;
+                }
+            }
+            
+            if(a == '[' || a == '{' || a == '(')
+            {
+                stk.push(a);
+            }  
+        }
+        
+        if(stk.empty())
+        {
+            return true;
+        }
+        else return false;
+        
+    }
+}
