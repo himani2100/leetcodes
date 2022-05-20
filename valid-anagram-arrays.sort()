@@ -1,0 +1,29 @@
+import java.util.*;
+
+class Solution 
+{
+    public boolean isAnagram(String s, String t) 
+    { 
+        if(s.length() != t.length()) //base case
+        {
+            return false;
+        }
+        
+        char[] k = s.toCharArray();
+        char[] l = t.toCharArray();
+        
+        Arrays.sort(k);
+        Arrays.sort(l);
+        
+        for(int i = 0; i < s.length(); i++) //could be t.length()
+        {
+            
+            if(k[i] != l[i])
+            {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+}
